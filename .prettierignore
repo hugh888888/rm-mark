@@ -1,0 +1,10 @@
+/dist
+/es
+public
+pnpm-lock.yaml
+yarn.lock
+
+/.git/
+*.bak
+*_bak
+stats.html

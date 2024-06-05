@@ -1,0 +1,10 @@
+node_modules
+dist
+pnpm-lock.yaml
+src/utils
+
+*.bak
+*_bak
+*.bak.js
+
+stats.html
