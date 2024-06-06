@@ -1,7 +1,7 @@
 const crypto = require('crypto')
 const axios = require('axios')
 const { sign } = require('../lib/Signer.js')
-const { title } = require('process')
+
 const userAgent =
 	'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.47'
 function msToken(length) {
@@ -51,7 +51,8 @@ async function GetInfo(url, ttwid, msToken) {
 
 	// 如果response.data为空或未定义
 	if (!response.data) {
-		return { work: false }
+		console.log('response', response)
+		return -1
 	}
 
 	// 校验响应状态
