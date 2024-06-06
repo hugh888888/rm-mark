@@ -37,7 +37,7 @@ router.get('/video', async (req, res) => {
 	const url = req.query.url
 	let data = null
 
-	const fn = services.find(key => url.includes(key))
+	const fn = Object.keys(services).find(key => url.includes(key))
 	if (fn) {
 		data = await fn(url)
 	}
