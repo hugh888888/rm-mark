@@ -6,9 +6,6 @@ const app = express()
 const router = express.Router()
 
 router.get('/video', async (req, res) => {
-	const url = req.query.url
-	let data = null
-
 	const services = {
 		'.pipix': videoService.pipixia,
 		'.douyin': videoService.getDouyinVideo,
@@ -37,12 +34,17 @@ router.get('/video', async (req, res) => {
 		'acfun.cn': videoService.acfan,
 		'meipai.com': videoService.meipai
 	}
-
+	const url = req.query.url
+	let data = null,
+		fn
 	for (const key in services) {
 		if (url.includes(key)) {
-			data = await services[key](url)
+			fn = services[key]
 			return
 		}
+	}
+	if (fn) {
+		data = await fn(url)
 	}
 	const result = {
 		code: 1,
