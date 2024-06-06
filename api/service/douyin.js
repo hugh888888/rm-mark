@@ -120,10 +120,12 @@ async function getDouyinVideo(url) {
 	if (!url || !url.includes('douyin')) return -1
 	try {
 		const id = await GetID(url)
+		console.log('id', id)
 		const xbogus = sign(
 			`aweme_id=${id}&aid=1128&version_name=23.5.0&device_platform=android&os_version=2333`,
 			userAgent
 		)
+		console.log('xbogus', xbogus)
 		const newUrl = `https://www.douyin.com/aweme/v1/web/aweme/detail/?aweme_id=${id}&aid=1128&version_name=23.5.0&device_platform=android&os_version=2333&X-Bogus=${xbogus}`
 		const ttwid =
 			'1%7ChLa6fHj5BbJT6oC0wXewbRE1DGHKriQAlv5pU8ZBgJI%7C1715163504%7C642d77f9a6de68014afb94ef7e2afd96db86186c8636bd1ad4c30ab87ff8f27f'

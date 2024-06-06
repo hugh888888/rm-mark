@@ -35,17 +35,13 @@ router.get('/video', async (req, res) => {
 		'meipai.com': videoService.meipai
 	}
 	const url = req.query.url
-	let data = null,
-		fn
-	for (const key in services) {
-		if (url.includes(key)) {
-			fn = services[key]
-			return
-		}
-	}
+	let data = null
+
+	const fn = services.find(key => url.includes(key))
 	if (fn) {
 		data = await fn(url)
 	}
+	console.log(fn)
 	const result = {
 		code: 1,
 		data,
@@ -54,7 +50,7 @@ router.get('/video', async (req, res) => {
 	if (data === null) {
 		result.code = 0
 		result.msg = '不支持的链接'
-	} else if (data === 'error') {
+	} else if (data === -1) {
 		result.code = 0
 		result.msg = '解析失败'
 	}
