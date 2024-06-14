@@ -1,7 +1,7 @@
 const crypto = require('crypto')
 const axios = require('axios')
 const { sign } = require('../lib/Signer.js')
-
+const { generate_a_bogus } = require('../lib/a_bogus.js')
 const userAgent =
 	'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.47'
 function msToken(length) {
@@ -51,7 +51,7 @@ async function GetInfo(url, ttwid, msToken) {
 
 	// 如果response.data为空或未定义
 	if (!response.data) {
-		console.log('response', response)
+		console.log('response', response.data)
 		return -1
 	}
 
@@ -121,13 +121,12 @@ async function getDouyinVideo(url) {
 	if (!url || !url.includes('douyin')) return -1
 	try {
 		const id = await GetID(url)
-		console.log('id', id)
-		const xbogus = sign(
+		const a_bogus = generate_a_bogus(
 			`aweme_id=${id}&aid=1128&version_name=23.5.0&device_platform=android&os_version=2333`,
 			userAgent
 		)
-		console.log('xbogus', xbogus)
-		const newUrl = `https://www.douyin.com/aweme/v1/web/aweme/detail/?aweme_id=${id}&aid=1128&version_name=23.5.0&device_platform=android&os_version=2333&X-Bogus=${xbogus}`
+		console.log('aa', a_bogus)
+		const newUrl = `https://www.douyin.com/aweme/v1/web/aweme/detail/?aweme_id=${id}&aid=1128&version_name=23.5.0&device_platform=android&os_version=2333&a_bogus=${a_bogus}`
 		const ttwid =
 			'1%7ChLa6fHj5BbJT6oC0wXewbRE1DGHKriQAlv5pU8ZBgJI%7C1715163504%7C642d77f9a6de68014afb94ef7e2afd96db86186c8636bd1ad4c30ab87ff8f27f'
 		const msToken =
