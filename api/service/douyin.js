@@ -25,7 +25,7 @@ async function getTtwid() {
 		const response = await axios.post(url, data, {
 			headers: { 'Content-Type': 'application/json' }
 		})
-		console.log('setCookie', response)
+		// console.log('setCookie', response)
 		const setCookie = response.headers['set-cookie']
 
 		const regex = /ttwid=([^;]+)/
@@ -42,7 +42,8 @@ async function GetInfo(url, ttwid, msToken) {
 	// 构造请求URL
 	const response = await axios.get(url, {
 		headers: {
-			cookie: `ttwid=${ttwid};msToken=${msToken};`,
+			// cookie: `ttwid=${ttwid};msToken=${msToken};`,
+			cookie: 'ttwid=1%7CUF5xh1rEllIET2BH0wSY9wXxmL9JWR5nygizsXidS00%7C1715934175%7Ce078d54e3b57d2f28f03ad14cc2e89308a244df142ea31bcff9d04c7090fbfcb;   msToken=nUqj6kEm1dQnOxyB1t15Q1fy2BoP1jGlccFpKgO85b6InJloF_fcNxB5wofyBc-6f7dyZ75Jdt99mbq_99Xg0egfi2R9hs3xQ9ZsbSAcOQw5tuqBKK9A5NEHodc0Sw==; ',
 			referer: 'https://www.douyin.com/',
 			'user-agent':
 				'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.47'
@@ -122,15 +123,17 @@ async function getDouyinVideo(url) {
 	try {
 		const id = await GetID(url)
 		const a_bogus = generate_a_bogus(
-			`aweme_id=${id}&aid=1128&version_name=23.5.0&device_platform=android&os_version=2333`,
+			`aweme_id=${id}&aid=1128&version_name=23.5.0&device_platform=android&os_version=2333&verifyFp=verify_lvyyd3ns_9cl6I7rF_5rxH_4ysI_A2aK_M6yX4Unowg6G`,
 			userAgent
 		)
 		console.log('aa', a_bogus)
-		const newUrl = `https://www.douyin.com/aweme/v1/web/aweme/detail/?aweme_id=${id}&aid=1128&version_name=23.5.0&device_platform=android&os_version=2333&a_bogus=${a_bogus}`
+		const newUrl = `https://www.douyin.com/aweme/v1/web/aweme/detail/?aweme_id=${id}&aid=1128&version_name=23.5.0&device_platform=android&os_version=2333&verifyFp=verify_lvyyd3ns_9cl6I7rF_5rxH_4ysI_A2aK_M6yX4Unowg6G&a_bogus=${a_bogus}`
 		const ttwid =
 			'1%7ChLa6fHj5BbJT6oC0wXewbRE1DGHKriQAlv5pU8ZBgJI%7C1715163504%7C642d77f9a6de68014afb94ef7e2afd96db86186c8636bd1ad4c30ab87ff8f27f'
-		const msToken =
-			'Eb7xINrOHXfxSccjaSjPA9nw6hlESQbnDA5kE7Ho5b97YMXXFcTeDX2L32NhJx64tIFpyEz2nj52K3VoOxAIUEQkPcPGJzdRMlwgHBoPTO7'
+		const msToken = ''
+		// const msToken = getMsToken(107)
+		// const ttwid = await getTtwid()
+
 		const result = await GetInfo(newUrl, ttwid, msToken)
 		return result
 	} catch (e) {
